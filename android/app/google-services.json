@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "262376135977",
+    "project_id": "multiplier-app-6d757",
+    "storage_bucket": "multiplier-app-6d757.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262376135977:android:d7453d0ca6b1ae197a2b38",
+        "android_client_info": {
+          "package_name": "com.heinrkdev.test_multiplier_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoYbqQgOJnT3sGdgcF4ohVh9tRMrYiIkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
