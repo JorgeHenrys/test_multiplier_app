@@ -24,20 +24,23 @@ class AuthContent extends StatelessWidget {
       elevation: 10,
       content: Row(
         children: [
-          Icon(Icons.warning_amber_outlined),
+          Icon(
+            Icons.warning_amber_outlined,
+            color: MultiplierColors.neutral_100,
+          ),
           SizedBox(width: 20),
           Text(
-            'Email ou senha incorreto',
+            'Falha no login, tente novamente!',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.blueGrey,
+              color: MultiplierColors.neutral_100,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
         ],
       ),
-      backgroundColor: Colors.deepOrangeAccent,
+      backgroundColor: MultiplierColors.error,
       padding: EdgeInsets.all(20),
       behavior: SnackBarBehavior.floating,
     );
@@ -80,10 +83,10 @@ class AuthContent extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       Text(
-                        'Bem-Vindo ao "App"',
+                        'Seja Bem-Vindo',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.blueGrey,
+                        style: TextStyle(
+                          color: MultiplierColors.neutral_400,
                           fontSize: 20,
                           fontFamily: 'Mulish',
                           fontWeight: FontWeight.w600,
@@ -93,7 +96,7 @@ class AuthContent extends StatelessWidget {
                         'faça login para acessar sua conta',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          color: Colors.deepOrangeAccent,
+                          color: MultiplierColors.primary,
                           fontSize: 12,
                           fontFamily: 'Mulish',
                           fontWeight: FontWeight.w400,
@@ -139,7 +142,7 @@ class AuthContent extends StatelessWidget {
                                         if (formKey.currentState!.validate()) {
                                           BlocProvider.of<AuthCubit>(
                                             context,
-                                          ).signInAuth(
+                                          ).signInWithEmail(
                                             email.text,
                                             password.text,
                                           );
@@ -181,7 +184,11 @@ class AuthContent extends StatelessWidget {
 
                           MultiplierButton(
                             label: "Entrar com Google",
-                            onPressed: () {},
+                            onPressed: () async {
+                              await BlocProvider.of<AuthCubit>(
+                                context,
+                              ).signInWithGoogle();
+                            },
                             type: MultiplierButtonTypes.secondary,
                             bordercolor: Colors.blueGrey,
                             color: Colors.blueGrey,

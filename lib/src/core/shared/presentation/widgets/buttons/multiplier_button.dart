@@ -28,7 +28,7 @@ class MultiplierButton extends StatelessWidget {
     super.key,
     required this.label,
     this.icon,
-    this.color = Colors.deepOrangeAccent,
+    this.color = MultiplierColors.primary,
     this.isFullWidth = false,
     this.size = 50,
     this.type = MultiplierButtonTypes.primary,

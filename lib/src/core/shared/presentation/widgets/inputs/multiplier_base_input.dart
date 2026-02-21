@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:test_multiplier_app/src/core/core.dart';
 
 class MultiplierBaseInput extends StatelessWidget {
   final String label;
@@ -63,7 +64,7 @@ class MultiplierBaseInput extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(padding),
           child: const CircularProgressIndicator(
-            color: Colors.blueGrey,
+            color: MultiplierColors.neutral_600,
             strokeWidth: 2,
           ),
         ),
@@ -79,7 +80,7 @@ class MultiplierBaseInput extends StatelessWidget {
             label,
             textAlign: TextAlign.left,
             style: const TextStyle(
-              color: Colors.blueGrey,
+              color: MultiplierColors.neutral_400,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -114,22 +115,28 @@ class MultiplierBaseInput extends StatelessWidget {
               suffixIcon: loading ? loadingIcon() : suffixIcon,
               helperText: helperText,
               errorText: errorText,
-              errorStyle: const TextStyle(color: Colors.red),
+              errorStyle: const TextStyle(color: MultiplierColors.error),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                borderSide: const BorderSide(
+                  color: MultiplierColors.neutral_400,
+                  width: 1.0,
+                ),
               ),
               border: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 2),
+                borderSide: BorderSide(
+                  color: MultiplierColors.neutral_400,
+                  width: 2,
+                ),
                 borderRadius: BorderRadius.all(Radius.circular(6)),
               ),
               errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.red),
+                borderSide: BorderSide(color: MultiplierColors.error),
                 borderRadius: BorderRadius.all(Radius.circular(6)),
               ),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.deepOrangeAccent,
+                  color: MultiplierColors.primary,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(6)),

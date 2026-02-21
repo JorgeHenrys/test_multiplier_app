@@ -11,7 +11,7 @@ class AuthCubit extends Cubit<AuthState> {
     : _authRepository = authRepository,
       super(AuthState.initial());
 
-  Future<void> signInAuth(String email, String password) async {
+  Future<void> signInWithEmail(String email, String password) async {
     emit(state.copyWith(status: AuthStatus.loading));
     final result = await _authRepository.loginWithEmail(
       email: email,
@@ -24,9 +24,24 @@ class AuthCubit extends Cubit<AuthState> {
         emit(state.copyWith(status: AuthStatus.error));
       },
       (user) async {
-        //debugPrint(user.accessToken);
-        // await prefs.setString('accessToken', user.accessToken);
-        // await prefs.setString('refreshToken', user.refreshToken);
+        debugPrint(user.name);
+
+        emit(state.copyWith(status: AuthStatus.success));
+      },
+    );
+  }
+
+  Future<void> signInWithGoogle() async {
+    emit(state.copyWith(status: AuthStatus.loading));
+    final result = await _authRepository.loginWithGoogle();
+
+    result.fold(
+      (l) {
+        debugPrint(l.message);
+        emit(state.copyWith(status: AuthStatus.error));
+      },
+      (user) async {
+        debugPrint(user.name);
 
         emit(state.copyWith(status: AuthStatus.success));
       },

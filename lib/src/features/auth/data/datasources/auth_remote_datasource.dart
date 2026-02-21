@@ -36,33 +36,18 @@ class AuthRemoteDatasource implements AuthDatasource {
   @override
   Future<UserModel> loginWithGoogle() async {
     try {
-      final googleUser = await GoogleSignIn().signIn();
-
-      if (googleUser == null) {
-        throw ServerException(message: "Google login cancelled");
-      }
-
-      final googleAuth = await googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      final googleUser = await GoogleSignIn.instance.authenticate(
+        scopeHint: ['email'],
       );
 
-      final userCredential = await _client.signInWithCredential(credential);
-
-      final user = userCredential.user;
-
-      if (user == null) {
-        throw ServerException(message: "Google auth failed");
-      }
-
-      return UserModel.fromUser(user);
+      return UserModel.fromGoogleUser(googleUser);
     } on DioException catch (err) {
       throw ServerException(
         message: err.message ?? err.toString(),
         statusCode: err.response?.statusCode ?? 500,
       );
+    } catch (err) {
+      throw ServerException(message: err.toString());
     }
   }
 
@@ -70,7 +55,7 @@ class AuthRemoteDatasource implements AuthDatasource {
   Future<void> logout() async {
     try {
       await _client.signOut();
-      await GoogleSignIn().signOut();
+      await GoogleSignIn.instance.signOut();
     } on DioException catch (err) {
       throw ServerException(
         message: err.message ?? err.toString(),
