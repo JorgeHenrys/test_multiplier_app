@@ -1,2 +1,3 @@
 export './entities/entities.dart';
 export './errors/errors.dart';
+export './enums/enums.dart';

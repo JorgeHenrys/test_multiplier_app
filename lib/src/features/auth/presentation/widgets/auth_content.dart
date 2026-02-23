@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_multiplier_app/src/core/core.dart';
-import 'package:test_multiplier_app/src/features/auth/auth.dart';
+import 'package:test_multiplier_app/src/features/features.dart';
 
 class AuthContent extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -50,18 +50,23 @@ class AuthContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == AuthStatus.error) {
           showSnackBar(context);
         }
         if (state.status == AuthStatus.success) {
-          Navigator.pushAndRemoveUntil(
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   PageRouteBuilder(
+          //     pageBuilder: (context, animation, secondaryAnimation) {
+          //       return DashboardPage();
+          //     },
+          //   ),
+          //   (_) => false,
+          // );
+          await Navigator.pushAndRemoveUntil(
             context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return Container();
-              },
-            ),
+            MaterialPageRoute(builder: (context) => DashboardPage()),
             (_) => false,
           );
         }
