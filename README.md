@@ -4,6 +4,16 @@ Aplicativo Flutter com autenticação via Google, chat com IA (OpenAI) e persist
 
 ---
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d300ed1f-7d42-48da-8fd7-f41e29dc71a7" width="402" height="874" />
+  <img src="https://github.com/user-attachments/assets/77894fb7-f3b8-4ab3-8253-52d4f853c9e8" width="402" height="874" />
+  <img src="https://github.com/user-attachments/assets/0cbb738e-1d66-4fad-bb55-cf3529f797c5" width="402" height="874" />
+  <img src="https://github.com/user-attachments/assets/ca007c33-f78c-4884-a9e8-f7265b9834da" width="402" height="874" />
+</p>
+
+---
+
+
 # 1. Como rodar o projeto do zero
 
 ## 1.1 Pré-requisitos
@@ -216,7 +226,10 @@ Hot reload não recarrega variáveis de ambiente.
 
 ## 4.1 Autenticação
 
-- Login com Google
+- Login com Google (Pode utilizar qualquer conta google)
+- Login com Email
+    - massa de teste: usuario@teste.com
+    - senha: 12345678
 - Logout
 - Persistência da sessão
 
@@ -258,28 +271,6 @@ Esperado:
 
 Esperado:
 - Conversas continuam salvas
-
----
-
-## 4.5 Testes automatizados
-
-Executar:
-
-```bash
-flutter test
-```
-
-Análise estática:
-
-```bash
-flutter analyze
-```
-
-Build de produção:
-
-```bash
-flutter build apk --release
-```
 
 ---
 
