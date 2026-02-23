@@ -23,34 +23,6 @@ class ChatContent extends StatelessWidget {
     );
   }
 
-  void showSnackBar(BuildContext context) {
-    const snackBar = SnackBar(
-      elevation: 10,
-      content: Row(
-        children: [
-          Icon(
-            Icons.warning_amber_outlined,
-            color: MultiplierColors.neutral_100,
-          ),
-          SizedBox(width: 20),
-          Text(
-            'Falha no login, tente novamente!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: MultiplierColors.neutral_100,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: MultiplierColors.error,
-      padding: EdgeInsets.all(20),
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

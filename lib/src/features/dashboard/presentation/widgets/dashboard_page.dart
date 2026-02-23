@@ -14,7 +14,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DashboardCubit>(
-      create: (context) => injector(),
+      create: (_) => injector()..initialize(),
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -27,12 +27,24 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.logout_outlined,
-                color: MultiplierColors.neutral_500,
-              ),
+            BlocBuilder<DashboardCubit, DashboardState>(
+              builder: (context, state) {
+                return IconButton(
+                  onPressed: () async {
+                    await BlocProvider.of<DashboardCubit>(context).logout();
+                    await Navigator.pushAndRemoveUntil(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute(builder: (context) => AuthPage()),
+                      (_) => false,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.logout_outlined,
+                    color: MultiplierColors.neutral_500,
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -43,20 +55,15 @@ class _DashboardPageState extends State<DashboardPage> {
               backgroundColor: MultiplierColors.primary,
               child: Icon(Icons.speaker_notes, size: 30, color: Colors.white),
               onPressed: () async {
-                //final String? returnedResult =
                 await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ChatPage()),
                 );
 
-                // if (returnedResult != null && returnedResult.isNotEmpty) {
-                //   searchController.value = TextEditingValue(
-                //     text: returnedResult,
-                //   );
-                //   await BlocProvider.of<SearchCubit>(
-                //     context,
-                //   ).fetchGithubUsers(returnedResult);
-                // }
+                await BlocProvider.of<DashboardCubit>(
+                  // ignore: use_build_context_synchronously
+                  context,
+                ).fetchAllHistorical();
               },
             );
           },

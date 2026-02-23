@@ -27,7 +27,7 @@ class ConversationModel extends Equatable {
     return {
       'id': id,
       'title': title,
-      'messages': messages,
+      'messages': messages.map((m) => m.toJson()).toList(),
       'updatedAt': updatedAt,
     };
   }

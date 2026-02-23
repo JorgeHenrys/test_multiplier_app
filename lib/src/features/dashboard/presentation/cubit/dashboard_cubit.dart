@@ -1,34 +1,47 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_multiplier_app/src/core/core.dart';
 import 'package:test_multiplier_app/src/features/features.dart';
 
 part 'dashboard_state.dart';
 
 class DashboardCubit extends Cubit<DashboardState> {
-  final DashboardRepository _authRepository;
-  DashboardCubit({required DashboardRepository authRepository})
-    : _authRepository = authRepository,
-      super(DashboardState.initial());
+  final LocalRepository _localRepository;
+  final AuthRepository _authRepository;
+  DashboardCubit({
+    required LocalRepository localRepository,
+    required AuthRepository authRepository,
+  }) : _localRepository = localRepository,
+       _authRepository = authRepository,
+       super(DashboardState.initial());
 
-  Future<void> signInWithEmail(String email, String password) async {
+  Future<void> fetchAllHistorical() async {
     emit(state.copyWith(status: DashboardStatus.loading));
-    final result = await _authRepository.loginWithEmail(
-      email: email,
-      password: password,
-    );
+    final result = await _localRepository.getConversations();
 
     result.fold(
       (l) {
         debugPrint(l.message);
         emit(state.copyWith(status: DashboardStatus.error));
       },
-      (user) async {
-        debugPrint(user.name);
-
-        emit(state.copyWith(status: DashboardStatus.success));
+      (conversationsResult) async {
+        emit(
+          state.copyWith(
+            conversations: conversationsResult,
+            status: DashboardStatus.success,
+          ),
+        );
       },
     );
+  }
+
+  Future<void> initialize() async {
+    await fetchAllHistorical();
+  }
+
+  Future<void> logout() async {
+    await _authRepository.logout();
   }
 
   String timeAgo(DateTime date) {

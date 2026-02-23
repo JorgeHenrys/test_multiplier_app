@@ -11,9 +11,14 @@ part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _chatRepository;
-  ChatCubit({required ChatRepository chatRepository})
-    : _chatRepository = chatRepository,
-      super(ChatState.initial());
+  final LocalRepository _localRepository;
+
+  ChatCubit({
+    required ChatRepository chatRepository,
+    required LocalRepository localRepository,
+  }) : _chatRepository = chatRepository,
+       _localRepository = localRepository,
+       super(ChatState.initial());
 
   FutureOr<bool> sendMessage(String message) async {
     bool isMessage = false;
@@ -62,6 +67,8 @@ class ChatCubit extends Cubit<ChatState> {
             ),
           ),
         );
+
+        _localRepository.saveConversation(conversation: state.conversation!);
         isMessage = true;
       },
     );
